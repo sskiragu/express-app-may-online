@@ -30,3 +30,15 @@ export const updateUser = async (req, res) => {
         res.json({message: error.message})
     }
 }
+export const deleteUser = async (req, res) => {
+    try {
+        await User.destroy({
+            where:{
+                id: req.params.id
+            }
+        })
+        res.json({message: "User Deleted."})
+    } catch (error) {
+        res.json({message: error.message})
+    }
+}
