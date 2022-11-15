@@ -1,6 +1,20 @@
-import React from 'react'
-
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 function EditComponent() {
+
+    const [ username, setUsername] = useState('')
+    const { id } = useParams()
+
+    useEffect( () => {
+        getProductById();
+    },[])
+
+    const getProductById = async () => {
+        const response = await axios.get(`http://localhost:5000/api/users/${id}`)
+        setUsername(response.data.username)
+    }
+
   return (
     <div>
         <div className='container'>
@@ -13,7 +27,7 @@ function EditComponent() {
                     <h1>Edit Details</h1>
                     <form>
                         <div className='mb-2'>
-                         <input type='text' placeholder='Enter new username'/>
+                         <input type='text' name='username' value={id} onChange={(e) => setUsername(e.target.value)} placeholder='Enter new username'/>
                         </div>
                         <div>
                             <button className='btn btn-primary'>Update</button>
