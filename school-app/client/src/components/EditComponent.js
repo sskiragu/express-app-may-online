@@ -8,7 +8,7 @@ function EditComponent() {
 
     useEffect( () => {
         getProductById();
-    },[])
+    })
 
     const getProductById = async () => {
         const response = await axios.get(`http://localhost:5000/api/users/${id}`)
@@ -25,9 +25,10 @@ function EditComponent() {
 
                 <div className='col-6'>
                     <h1>Edit Details</h1>
+                    <h1>{username}</h1>
                     <form>
                         <div className='mb-2'>
-                         <input type='text' name='username' value={id} onChange={(e) => setUsername(e.target.value)} placeholder='Enter new username'/>
+                         <input type='text' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Enter new username'/>
                         </div>
                         <div>
                             <button className='btn btn-primary'>Update</button>
