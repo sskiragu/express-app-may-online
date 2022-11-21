@@ -6,9 +6,16 @@ function EditComponent() {
     const [ username, setUsername] = useState('')
     const { id } = useParams()
 
+    const updateUser = async (e) => {
+        e.preventDefault()
+        await axios.patch(`http://localhost:5000/api/users/${id}`,{
+            username: username
+        })
+    }
+
     useEffect( () => {
         getProductById();
-    })
+    }, [])
 
     const getProductById = async () => {
         const response = await axios.get(`http://localhost:5000/api/users/${id}`)
@@ -26,12 +33,12 @@ function EditComponent() {
                 <div className='col-6'>
                     <h1>Edit Details</h1>
                     <h1>{username}</h1>
-                    <form>
+                    <form onSubmit={updateUser}>
                         <div className='mb-2'>
                          <input type='text' value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Enter new username'/>
                         </div>
                         <div>
-                            <button className='btn btn-primary'>Update</button>
+                            <button type='submit' className='btn btn-primary'>Update</button>
                         </div>
                     </form>
                 </div>
