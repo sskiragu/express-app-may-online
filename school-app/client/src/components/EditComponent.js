@@ -1,16 +1,18 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 function EditComponent() {
 
     const [ username, setUsername] = useState('')
     const { id } = useParams()
+    let navigate = useNavigate()
 
     const updateUser = async (e) => {
         e.preventDefault()
         await axios.patch(`http://localhost:5000/api/users/${id}`,{
             username: username
         })
+        navigate('/')
     }
 
     useEffect( () => {
